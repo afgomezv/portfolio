@@ -1,105 +1,91 @@
-import React, { useState } from "react";
-
-import { images } from "../../constants";
+import React from "react";
+import { useForm } from "../../Hooks/UseForm.js";
 import { AppWrap, MotionWrap } from "../../wrapper";
-import { client } from "../../client";
-
+import { validationsForm } from "../../Helpers/ValidationsForm.js";
 import "./Footer.scss";
 
-const Footer = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+const initialForm = {
+  name: "",
+  email: "",
+  message: "",
+};
 
-  const { username, email, message } = formData;
+let styles = {
+  width: "60%",
+  textAlign: "center",
+  fontWeight: "bold",
+  padding: "0.6rem",
+  borderRadius: "0.3rem",
+  backgroundColor: "#f44336",
+  color: "black",
+};
 
-  const handleChangeInput = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = () => {
-    setLoading(true);
-
-    const contact = {
-      _type: "contact",
-      name: formData.username,
-      email: formData.email,
-      message: formData.message,
-    };
-
-    client
-      .create(contact)
-      .then(() => {
-        setLoading(false);
-        setIsFormSubmitted(true);
-      })
-      .catch((err) => console.log(err));
-  };
+export const Footer = () => {
+  const {
+    form,
+    errors,
+    loading,
+    response,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+  } = useForm(initialForm, validationsForm);
 
   return (
-    <>
-      <h2 className="head-text">Take a coffee & chat with me</h2>
-      <div className="app__footer-cards">
-        <div className="app__footer-card">
-          <img src={images.email} alt="email" />
-          <a href="emailto:afgomezvonline@gmail.com" className="p-text">
-            afgomezvonline@gmail.com
-          </a>
-        </div>
-        <div className="app__footer-card">
-          <img src={images.mobile} alt="mobile" />
-          <a href="tel:(+57) 350-207-6277" className="p-text">
-            (+57) 350-207-6277
-          </a>
-        </div>
-      </div>
-
-      {!isFormSubmitted ? (
-        <div className="app__footer-form app__flex">
+    <div>
+      {!response ? (
+        <form className="app__footer-form app__flex">
+          <h2 className="head-text">Take a coffee & chat with me</h2>
           <div className="app__flex">
             <input
               className="p-text"
               type="text"
+              name="name"
               placeholder="Your Name"
-              name="username"
-              value={username}
-              onChange={handleChangeInput}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={form.name}
+              required
             />
           </div>
+          {errors.name && <p style={styles}>{errors.name}</p>}
           <div className="app__flex">
             <input
               className="p-text"
               type="email"
-              placeholder="Your Email"
               name="email"
-              value={email}
-              onChange={handleChangeInput}
+              placeholder="Your Email"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={form.email}
+              required
             />
           </div>
-          <div>
+          {errors.email && <p style={styles}>{errors.email}</p>}
+          <div className="app__flex"></div>
+          <div className="app__flex">
             <textarea
               className="p-text"
-              placeholder="Your Message"
-              value={message}
               name="message"
-              onChange={handleChangeInput}
+              placeholder="Your Message"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={form.message}
+              required
             />
           </div>
+          {errors.message && <p style={styles}>{errors.message}</p>}
           <button type="button" className="p-text" onClick={handleSubmit}>
-            {!loading ? "Send Message" : "Sending..."}
+            {loading ? "Sending..." : "Send Message"}
           </button>
-        </div>
+          <br />
+        </form>
       ) : (
         <div>
           <h3 className="head-text">Thank you for getting in touch!</h3>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -5,13 +5,19 @@ const SocialMedia = () => {
   return (
     <div className="app__social">
       <div>
-        <FaGithub />
+        <a href="https://github.com/afgomezv">
+          <FaGithub />
+        </a>
       </div>
       <div>
-        <FaLinkedin />
+        <a href="https://www.linkedin.com/in/afgomezv">
+          <FaLinkedin />
+        </a>
       </div>
       <div>
-        <FaInstagram />
+        <a href="https://www.instagram.com/gomez_andrey56/">
+          <FaInstagram />
+        </a>
       </div>
     </div>
   );
