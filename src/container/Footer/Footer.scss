@@ -36,7 +36,7 @@
 
   button {
     padding: 1rem 2rem;
-    border-radius: 10px;
+    border-radius: 0.6rem;
     border: none;
     background-color: var(--secondary-color);
     font-weight: 500;
@@ -45,6 +45,11 @@
     margin: 2rem 0 0 0;
     font-family: var(--font-base);
     cursor: pointer;
+
+    &:hover {
+      background-color: var(--white-color);
+      color: var(--secondary-color);
+    }
   }
 
   @media screen and (max-width: 768px) {

@@ -41,7 +41,7 @@ export const Footer = () => {
               className="p-text"
               type="text"
               name="name"
-              placeholder="Your Name"
+              placeholder="Enter your name"
               onBlur={handleBlur}
               onChange={handleChange}
               value={form.name}
@@ -54,7 +54,7 @@ export const Footer = () => {
               className="p-text"
               type="email"
               name="email"
-              placeholder="Your Email"
+              placeholder="Enter your email"
               onBlur={handleBlur}
               onChange={handleChange}
               value={form.email}
@@ -67,7 +67,7 @@ export const Footer = () => {
             <textarea
               className="p-text"
               name="message"
-              placeholder="Your Message"
+              placeholder="Enter your message"
               onBlur={handleBlur}
               onChange={handleChange}
               value={form.message}
